@@ -1,6 +1,3 @@
-// Assignment 6.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 #include <iostream>
 #include <cstdlib>
@@ -32,7 +29,8 @@ int main()
 			{
 				if(i_input[0] == 'q') bool_break = false;		//break while loop #1
 			}
-			if (!bool_break || isdigit(i_input[0])) break;		//break while loop #2
+			
+			if ((bool_break || isdigit(i_input[0])) && !(i_input.find("."))) break;		//break while loop #2
 			
 		}
 		if (bool_break == false) break;
@@ -52,4 +50,3 @@ int main()
 
     return 0;
 }
-
