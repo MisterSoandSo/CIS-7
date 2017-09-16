@@ -6,11 +6,21 @@
 
 using namespace std;
 
-bool integer_check(int &x)
+bool mod_check(int &x)
 {
 	int temp = x % 2;
 	if (temp == 1) return true;		//number is odd
 	 return false;					//number is even
+}
+
+bool integer_check(string &input)
+{
+	if (input.empty() || !isdigit(input[0]))
+	{
+		 return false;		//not integer
+	}
+
+	if ((isdigit(input[0])) && !(input.find("."))) return true;		//integer
 }
 
 int main()
@@ -18,35 +28,32 @@ int main()
 	string i_input;
 	int i;
 	bool bool_break = true;
-	
-	while (bool_break)	//while loop1
+
+	while (true)
 	{
-		while (true)		//while loop2
+		cout << "Please enter an integer value('q' to quit): ";
+		getline(cin, i_input);
+		if (integer_check(i_input))
 		{
-			cout << "Please enter an integer value('q' to quit): ";
-			getline(cin, i_input);
-			if (i_input.empty() || !isdigit(i_input[0]) )
+			stringstream convert_int(i_input);
+			convert_int >> i;
+			if (mod_check(i))
 			{
-				if(i_input[0] == 'q') bool_break = false;		//break while loop #1
+				cout << i << " is an odd number." << endl;
 			}
-			
-			if ((bool_break || isdigit(i_input[0])) && !(i_input.find("."))) break;		//break while loop #2
-			
+			else
+			{
+				cout << i << " is an even number." << endl;
+			}
 		}
-		if (bool_break == false) break;
-		
-		stringstream convertint(i_input);
-		convertint >> i;
-		if (integer_check(i))
+		if (!integer_check(i_input) && (i_input == "q"))
 		{
-			cout  << i << " is an odd number." << endl;
+			break;		//exit
 		}
-		else
-		{
-			cout  << i << " is an even number." << endl;
-		}
-		
+
+
 	}
 
     return 0;
 }
+
