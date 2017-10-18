@@ -11,10 +11,10 @@
 - [ ] Assignment 07 - Done
 - [ ] Assignment 08 - Done
 - [ ] Assignment 09 - Done 
-- [ ] Assignment 10 - In-Progress
-- [ ] Assignment 11 - In-Progress
-- [ ] Assignment 12 - In-Progress
-- [ ] Assignment 13 - In-Progress
+- [ ] Assignment 10 - Done
+- [ ] Assignment 11 - Done
+- [ ] Assignment 12 - Done
+- [ ] Assignment 13 - Done
 - [ ] Assignment 14 - In-Progress
 - [ ] Assignment 15 - In-Progress
 - [ ] Assignment 16 - In-Progress
