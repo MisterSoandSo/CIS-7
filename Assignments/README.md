@@ -15,10 +15,10 @@
 - [ ] Assignment 11 - Done
 - [ ] Assignment 12 - Done
 - [ ] Assignment 13 - Done
-- [ ] Assignment 14 - In-Progress
-- [ ] Assignment 15 - In-Progress
-- [ ] Assignment 16 - In-Progress
+- [ ] Assignment 14 - Done
+- [ ] Assignment 15 - Done
+- [ ] Assignment 16 - Done
 - [ ] Assignment 17 - In-Progress
-- [ ] Assignment 18 - In-Progress
+- [ ] Assignment 18 - Done
 - [ ] Assignment 19 - In-Progress 
-- [ ] Assignment 10 - In-Progress
+- [ ] Assignment 20 - Does not Exist
