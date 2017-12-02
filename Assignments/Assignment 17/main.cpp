@@ -1,54 +1,46 @@
-#include "stdafx.h"
 #include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include "graph.h"
 
 using namespace std;
 
-int  usermenu();
-void add_vertices();
-void add_edges();
-void finds_highest_deg();
-void list_iso_vertices();
-int  num_loop();
-bool is_connected();
-bool is_complete();
+int usermenu();
+void displayInfo(const Graph &,  int);
+void addEdge(Graph &, int &);
+void finds_highest_deg(const Graph &, int&);
+string list_iso_vertice(const Graph &);
+void num_loop(const Graph &, int&);
+bool isGraphConnected(const Graph &);
+bool isGraphComplete(const Graph &);
 
 int main()
 {
+	Graph graph;
+	int numEdge = 0;
+
 	int break_int = 0;
 
-	while (break_int != 8)
+	while (break_int != 3)
 	{
+		displayInfo(graph, numEdge);
 		break_int = usermenu();
 		switch (break_int)
 		{
 		case 1:
-			add_vertices();
+			graph.addVertex();
 			break;
 		case 2:
-			add_edges();
+			addEdge(graph, numEdge);
 			break;
 		case 3:
-			finds_highest_deg();
 			break;
-		case 4:
-			list_iso_vertices();
-			break;
-		case 5:
-			num_loop();
-			break;
-		case 6:
-			is_connected();
-			break;
-		case 7:
-			is_complete();
-			break;
-		case 8:
-			break;
+		default:
+			cout << "~~~ Invalid Input! Please enter valid input ~~~" << endl<<endl;
 		}
-
-
 	}
-	
+
 	cout << "Goodbye!" << endl;
 
 	return 0;
@@ -57,53 +49,181 @@ int main()
 
 int usermenu()
 {
-	int input = 0;
+	int input;
 	cout << " ~~~~~~~~~~~~~~~ Graph Theory Program Main Menu ~~~~~~~~~~~~~~~ " << endl;
 	cout << " 1. - Add a vertices" << endl;
 	cout << " 2. - Add a edge" << endl;
-	cout << " 3. - Find the highest degree" << endl;
-	cout << " 4. - List isolated vertices" << endl;
-	cout << " 5. - Find number of loops" << endl;
-	cout << " 6. - Is graph connected?" << endl;
-	cout << " 7. - Is graph complete?" << endl;
-	cout << " 8. - Quit Program" << endl;
-	cout << "User Choice (1-8): ";
+	cout << " 3. - Quit Program" << endl;
+	cout << "User Choice (1-3): ";
 	cin >> input;
-	if (input >= 1 && input <= 8) return input;
-	usermenu();
+
+	cout << endl;
+
+	return input;
 }
 
-void add_vertices()
+void displayInfo(const Graph & graph,  int numEdge)
 {
+	int highest_deg, loop_num = 0;
+	finds_highest_deg(graph, highest_deg);
+	num_loop(graph, loop_num);
 
+	cout << "Number of vertices: " << graph.size() << endl;
+	cout << "Number of edges: " << numEdge << endl << endl;
+
+	cout << "Vertex with highest degree: ";
+
+	if (graph.size() != 0)
+	{
+		cout << highest_deg << endl;
+	}
+	else
+	{
+		cout << "N/A" << endl;
+	}
+
+	cout << "Isolated vertices: " << list_iso_vertice(graph) << endl;
+	cout << "Number of loops: " << loop_num << endl;
+
+	cout << "Connected: ";
+
+	if (graph.size() != 0)
+	{
+		cout << (isGraphConnected(graph) ? "Yes" : "No") << endl;
+	}
+
+	else
+	{
+		cout << "N/A" << endl;
+	}
+
+	cout << "Complete: ";
+
+	if (graph.size() != 0)
+	{
+		cout << (isGraphComplete(graph) ? "Yes" : "No") << endl << endl;
+	}
+
+	else
+	{
+		cout << "N/A" << endl << endl;
+	}
 }
 
-void add_edges()
+void addEdge(Graph & graph, int &temp)
 {
+	static int count = 0;
 
+	if (graph.size() == 0)
+	{
+		cout << "Error." << endl << endl;
+	}
+
+	else
+	{
+		 int u_input1, u_input2 = 0;
+
+		cout << "Enter first vertex: ";
+		cin >> u_input1;
+		cout << endl;
+
+		cout << "Enter second vertex: ";
+		cin >> u_input2;
+		cout << endl;
+
+		if (graph.size() <= --u_input1 || graph.size() <= --u_input2)
+		{
+			cout << "Error." << endl << endl;
+		}
+
+		else
+		{
+			graph[u_input1]->addEdge(*graph[u_input2]);
+
+			count++;
+		}
+	}
+
+	temp = count;
 }
 
-void finds_highest_deg()
+void finds_highest_deg(const Graph & graph, int &temp)
 {
+	 int highest = 0;
 
+	for (int i = 0; i < graph.size(); i++)
+	{
+		if (graph[i]->degrees() > graph[highest]->degrees())
+		{
+			highest = i;
+		}
+	}
+
+	temp = highest + 1;
 }
 
-void list_iso_vertices()
+string list_iso_vertice(const Graph & graph)
 {
+	stringstream iso_vertice;
 
+	for (int i = 0; i < graph.size(); i++)
+	{
+		if (graph[i]->degrees() == 0)
+		{
+			iso_vertice << i + 1;
+
+			if (i + 1 < graph.size())
+			{
+				iso_vertice << ", ";
+			}
+		}
+	}
+
+	return iso_vertice.str().empty() ? "N/A" : iso_vertice.str();
 }
 
-int  num_loop()
+void num_loop(const Graph & graph, int &temp)
 {
+    int Counter = 0;
 
+	for (int i = 0; i < graph.size(); i++)
+	{
+		Counter += graph[i]->degrees(*graph[i]) / 2;
+	}
+
+	temp = Counter;
 }
 
-bool is_connected()
+bool isGraphConnected(const Graph & graph)
 {
+	if (graph.size() > 1)
+	{
+		for (int i = 0; i < graph.size(); i++)
+		{
+			if (graph[i]->degrees() == graph[i]->degrees(*graph[i]) || graph[i]->isOnlyLoops())
+			{
+				return false;
+			}
+		}
+	}
 
+	return true;
 }
 
-bool is_complete()
+bool isGraphComplete(const Graph & graph)
 {
+	vector <vector<int>> adjacency = graph.getAdjacency();
 
+	for (int i = 0; i < adjacency.size(); i++)
+	{
+		for (int j = 0; j < adjacency[i].size(); j++)
+		{
+			if (i != j && adjacency[i][j] == 0)
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
 }
