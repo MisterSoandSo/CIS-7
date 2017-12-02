@@ -18,7 +18,7 @@
 - [ ] Assignment 14 - Done
 - [ ] Assignment 15 - Done
 - [ ] Assignment 16 - Done
-- [ ] Assignment 17 - In-Progress
+- [ ] Assignment 17 - Done
 - [ ] Assignment 18 - Done
-- [ ] Assignment 19 - In-Progress 
-- [ ] Assignment 20 - Does not Exist
+- [ ] Assignment 19 - Done
+
